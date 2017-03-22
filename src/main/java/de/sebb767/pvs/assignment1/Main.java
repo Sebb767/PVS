@@ -1,6 +1,7 @@
 package de.sebb767.pvs.assignment1;
 
 import de.sebb767.pvs.assignment1.Implementation.ExecutorServiceWorker;
+import de.sebb767.pvs.assignment1.Implementation.ForkJoinWorker;
 import de.sebb767.pvs.assignment1.Implementation.SequentialWorker;
 import de.sebb767.pvs.assignment1.Implementation.StreamWorker;
 import de.sebb767.pvs.helper.Benchmark;
@@ -13,6 +14,7 @@ public class Main {
         runBenchmark(new SequentialWorker(), data);
         runBenchmark(new ExecutorServiceWorker(), data);
         runBenchmark(new StreamWorker(), data);
+        runBenchmark(new ForkJoinWorker(), data);
     }
 
     public static long runBenchmark(Worker w, NumberGenerator.ArrayContainer data)

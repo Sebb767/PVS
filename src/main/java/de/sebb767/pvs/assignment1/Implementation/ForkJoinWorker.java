@@ -1,6 +1,7 @@
 package de.sebb767.pvs.assignment1.Implementation;
 
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 import java.util.function.LongBinaryOperator;
 
@@ -32,10 +33,13 @@ public class ForkJoinWorker extends AbstractWorker {
 
                 int split = (end - start) / 2;
 
-                invokeAll(new ForkJoinSlave(array, start, start + split, cores, lbn),
-                        new ForkJoinSlave(array, start + split, end, cores, lbn));
+                //invokeAll(new ForkJoinSlave(array, start, start + split, cores, lbn),
+                        //new ForkJoinSlave(array, start + split, end, cores, lbn));
 
-                return this.get();
+                ForkJoinTask<Long> lower = (new ForkJoinSlave(array, start, start + split, cores, lbn)).fork(),
+                        upper = (new ForkJoinSlave(array, start + split, end, cores, lbn)).fork();
+
+                return lower.get() + upper.get();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -46,6 +50,6 @@ public class ForkJoinWorker extends AbstractWorker {
 
     @Override
     public void processData(Integer[] data, LongBinaryOperator lbn) {
-        fjp.invoke(new ForkJoinSlave(data, 0, data.length - 1, 4, lbn));
+        result = fjp.invoke(new ForkJoinSlave(data, 0, data.length - 1, 4, lbn));
     }
 }
