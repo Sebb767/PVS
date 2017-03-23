@@ -1,6 +1,7 @@
 package de.sebb767.pvs.assignment2;
 
 import de.sebb767.pvs.assignment2.Implementation.JavaStandardPrefixSum;
+import de.sebb767.pvs.assignment2.Implementation.ProceduralPrefixSum;
 import de.sebb767.pvs.helper.ImprovedBenchmark;
 import de.sebb767.pvs.helper.NumberGenerator;
 
@@ -14,6 +15,7 @@ public class ApsBenchmark {
 
         NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << 22, 0x000000FF);
 
+        runBenchmark(new ProceduralPrefixSum(data));
         runBenchmark(new JavaStandardPrefixSum(data));
     }
 
