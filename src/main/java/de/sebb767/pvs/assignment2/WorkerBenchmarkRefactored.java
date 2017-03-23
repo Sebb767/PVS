@@ -14,7 +14,7 @@ import de.sebb767.pvs.helper.NumberGenerator;
 public class WorkerBenchmarkRefactored extends WorkerBenchmark {
 
     public static void main(String[] args) {
-        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << 24);
+        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << 25);
         WorkerBenchmarkRefactored wb = new WorkerBenchmarkRefactored(data);
 
 
@@ -32,7 +32,7 @@ public class WorkerBenchmarkRefactored extends WorkerBenchmark {
     {
         ImprovedBenchmark benchmark = new ImprovedBenchmark();
 
-        benchmark.run(() -> w.processData(data.getData(), (x,y) -> x + y), 100, w.getClass().getName());
+        benchmark.run(() -> w.processData(data.getData(), (x,y) -> x + y), 200, w.getClass().getName());
 
         long ret = w.getResult();
         assert(((Long)data.getSum()).equals(ret));
