@@ -7,17 +7,24 @@ import de.sebb767.pvs.assignment1.Implementation.StreamWorker;
 import de.sebb767.pvs.helper.Benchmark;
 import de.sebb767.pvs.helper.NumberGenerator;
 
-public class Main {
+public class WorkerBenchmark {
+    protected final NumberGenerator.ArrayContainer data;
+
     public static void main(String[] args) {
         NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << 25);
+        WorkerBenchmark wb = new WorkerBenchmark(data);
 
-        runBenchmark(new SequentialWorker(), data);
-        runBenchmark(new ExecutorServiceWorker(), data);
-        runBenchmark(new StreamWorker(), data);
-        runBenchmark(new ForkJoinWorker(), data);
+        wb.runBenchmark(new SequentialWorker());
+        wb.runBenchmark(new ExecutorServiceWorker());
+        wb.runBenchmark(new StreamWorker());
+        wb.runBenchmark(new ForkJoinWorker());
     }
 
-    public static long runBenchmark(Worker w, NumberGenerator.ArrayContainer data)
+    public WorkerBenchmark(NumberGenerator.ArrayContainer data) {
+        this.data = data;
+    }
+
+    public long runBenchmark(Worker w)
     {
         Benchmark benchmark = new Benchmark();
 
