@@ -31,13 +31,17 @@ public class NumberGenerator {
     }
 
     public ArrayContainer generateRandomArray(int size) {
+        return generateRandomArray(size, 0xFFFFFFFF);
+    }
+
+    public ArrayContainer generateRandomArray(int size, int mask) {
         Integer[] data = new Integer[size];
         long sum = 0;
 
         Random rng = new Random();
 
         for (int i = 0; i < size; i++) {
-            data[i] = rng.nextInt();
+            data[i] = rng.nextInt() & mask;
             sum += data[i];
         }
 
