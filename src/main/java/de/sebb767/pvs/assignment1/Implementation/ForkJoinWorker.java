@@ -39,7 +39,7 @@ public class ForkJoinWorker extends AbstractWorker {
                 ForkJoinTask<Long> lower = (new ForkJoinSlave(array, start, start + split, cores, lbn)).fork(),
                         upper = (new ForkJoinSlave(array, start + split, end, cores, lbn)).fork();
 
-                return lower.get() + upper.get();
+                return lbn.applyAsLong(lower.get(), upper.join());
 
             } catch (Exception e) {
                 e.printStackTrace();
