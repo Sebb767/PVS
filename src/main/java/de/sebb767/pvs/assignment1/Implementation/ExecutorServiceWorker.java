@@ -13,7 +13,7 @@ public class ExecutorServiceWorker extends AbstractWorker {
     @Override
     public void processData(Integer[] data, LongBinaryOperator lbn) {
         int cores = 4;
-        assert(data.length > cores);
+        assert(data.length % cores == 0);
         int pieceSize = data.length / cores;
         result = 0;
 
