@@ -1,5 +1,6 @@
 package de.sebb767.pvs.assignment2;
 
+import de.sebb767.pvs.assignment2.Implementation.JavaStandardPrefixSum;
 import de.sebb767.pvs.helper.ImprovedBenchmark;
 import de.sebb767.pvs.helper.NumberGenerator;
 
@@ -11,12 +12,12 @@ public class ApsBenchmark {
 
     public static void main(String[] args) {
 
-        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << 24, 0x000000FF);
+        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << 22, 0x000000FF);
 
-
+        runBenchmark(new JavaStandardPrefixSum(data));
     }
 
-    public static void RunBenchmark(AbstractPrefixSum aps)
+    public static void runBenchmark(AbstractPrefixSum aps)
     {
         ib.run(() -> aps.run(), () -> aps.reset(), 200, aps.getClass().getName());
     }
