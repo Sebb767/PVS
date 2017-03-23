@@ -1,5 +1,7 @@
 package de.sebb767.pvs.assignment1.Implementation;
 
+import de.sebb767.pvs.helper.ThreadCountHelper;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -8,16 +10,17 @@ import java.util.concurrent.Future;
 import java.util.function.LongBinaryOperator;
 
 public class ExecutorServiceWorker extends AbstractWorker {
+    protected final int cores = ThreadCountHelper.getIdealThreadCount();
+    protected final ExecutorService s = Executors.newFixedThreadPool(cores);
 
 
     @Override
     public void processData(Integer[] data, LongBinaryOperator lbn) {
-        int cores = 4;
+
         assert(data.length % cores == 0);
         int pieceSize = data.length / cores;
         result = 0;
 
-        ExecutorService s = Executors.newFixedThreadPool(cores);
         List<Future> futures = new LinkedList<>();
 
 

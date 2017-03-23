@@ -1,5 +1,7 @@
 package de.sebb767.pvs.assignment1.Implementation;
 
+import de.sebb767.pvs.helper.ThreadCountHelper;
+
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
@@ -50,6 +52,6 @@ public class ForkJoinWorker extends AbstractWorker {
 
     @Override
     public void processData(Integer[] data, LongBinaryOperator lbn) {
-        result = fjp.invoke(new ForkJoinSlave(data, 0, data.length - 1, 4, lbn));
+        result = fjp.invoke(new ForkJoinSlave(data, 0, data.length - 1, ThreadCountHelper.getIdealThreadCount(), lbn));
     }
 }
