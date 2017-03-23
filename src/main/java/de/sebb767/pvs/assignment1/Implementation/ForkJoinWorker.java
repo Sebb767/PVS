@@ -8,7 +8,6 @@ import java.util.concurrent.RecursiveTask;
 import java.util.function.LongBinaryOperator;
 
 public class ForkJoinWorker extends AbstractWorker {
-    protected final ForkJoinPool fjp = new ForkJoinPool();
 
     protected class ForkJoinSlave extends RecursiveTask<Long> {
         protected final Integer[] array;
@@ -52,6 +51,7 @@ public class ForkJoinWorker extends AbstractWorker {
 
     @Override
     public void processData(Integer[] data, LongBinaryOperator lbn) {
+        ForkJoinPool fjp = new ForkJoinPool();
         result = fjp.invoke(new ForkJoinSlave(data, 0, data.length - 1, ThreadCountHelper.getIdealThreadCount(), lbn));
     }
 }
