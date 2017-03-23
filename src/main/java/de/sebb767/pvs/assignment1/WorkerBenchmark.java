@@ -36,6 +36,11 @@ public class WorkerBenchmark {
                         System.exit(1);
                     }
                     break;
+
+                default:
+                    System.out.printf("Unknown parameter %s!\n", args[i]);
+                    System.exit(4);
+                    break;
             }
         }
 
