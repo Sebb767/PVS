@@ -8,14 +8,23 @@ import de.sebb767.pvs.assignment1.Worker;
 import de.sebb767.pvs.assignment1.WorkerBenchmark;
 import de.sebb767.pvs.helper.ImprovedBenchmark;
 import de.sebb767.pvs.helper.NumberGenerator;
-
+import de.sebb767.pvs.helper.ThreadCountHelper;
 
 
 public class WorkerBenchmarkRefactored extends WorkerBenchmark {
 
     public static void main(String[] args) {
-        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << 25);
+        int size = 25;
+
+        size = parseCommandLine(args, size);
+
+        System.out.printf("Starting benchmark using %d threads and a dataset of 2^%.2f elements.\n" +
+                "Starting array generation ...", ThreadCountHelper.getIdealThreadCount(), size);
+
+        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(size);
         WorkerBenchmarkRefactored wb = new WorkerBenchmarkRefactored(data);
+
+        System.out.println(" done.");
 
 
         wb.runBenchmark(new SequentialWorker());

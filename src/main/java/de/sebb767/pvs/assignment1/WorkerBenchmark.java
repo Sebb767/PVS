@@ -14,6 +14,15 @@ public class WorkerBenchmark {
     public static void main(String[] args) {
         int size = 25;
 
+        size = parseCommandLine(args, size);
+
+        runBenchmarkForAllWorkes(size);
+    }
+
+    public static int parseCommandLine(String args[], int defaultSize)
+    {
+        int size = defaultSize;
+
         for (int i = 1; i < args.length; i++) {
             switch (args[i]) {
                 case "--help":
@@ -44,16 +53,18 @@ public class WorkerBenchmark {
             }
         }
 
-        runBenchmarkForAllWorkes(size);
+        return size;
     }
 
     public static void runBenchmarkForAllWorkes(int arraySize)
     {
         System.out.printf("Starting benchmark using %d threads and a dataset of 2^%.2f elements.\n" +
-                "Starting array generation ...", ThreadCountHelper.getIdealThreadCount(), arraySize);
+                "Starting array generation ... ", ThreadCountHelper.getIdealThreadCount(), arraySize);
 
         NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << arraySize);
         WorkerBenchmark wb = new WorkerBenchmark(data);
+
+        System.out.println("done.");
 
         wb.runBenchmark(new SequentialWorker());
         wb.runBenchmark(new ExecutorServiceWorker());
