@@ -11,13 +11,12 @@ import java.util.function.LongBinaryOperator;
 
 public class ExecutorServiceWorker extends AbstractWorker {
     protected final int cores = ThreadCountHelper.getIdealThreadCount();
-    protected final ExecutorService s = Executors.newFixedThreadPool(cores);
-
 
     @Override
     public void processData(Integer[] data, LongBinaryOperator lbn) {
+        ExecutorService s = Executors.newFixedThreadPool(cores);
 
-        assert(data.length % cores == 0);
+        assert (data.length % cores == 0);
         int pieceSize = data.length / cores;
         result = 0;
 
