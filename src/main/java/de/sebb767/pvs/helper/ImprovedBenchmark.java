@@ -11,7 +11,11 @@ public class ImprovedBenchmark {
         this.run(func, times, "Benchmark");
     }
 
-    public void run(Runnable func, int times, String name)
+    public void run(Runnable func, int times, String name) {
+        run(func, null, times, name);
+    }
+
+    public void run(Runnable func, Runnable reset, int times, String name)
     {
         System.out.print("Starting benchmark ... ");
 
@@ -25,6 +29,8 @@ public class ImprovedBenchmark {
             func.run();
 
             endTime = System.currentTimeMillis();
+
+            if(reset != null) reset.run();
 
             measurements[i] = endTime - startTime;
         }
