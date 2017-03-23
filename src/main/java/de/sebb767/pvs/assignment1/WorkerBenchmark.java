@@ -58,7 +58,7 @@ public class WorkerBenchmark {
 
     public static void runBenchmarkForAllWorkes(int arraySize)
     {
-        System.out.printf("Starting benchmark using %d threads and a dataset of 2^%.2f elements.\n" +
+        System.out.printf("Starting benchmark using %d threads and a dataset of 2^%d elements.\n" +
                 "Starting array generation ... ", ThreadCountHelper.getIdealThreadCount(), arraySize);
 
         NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << arraySize);

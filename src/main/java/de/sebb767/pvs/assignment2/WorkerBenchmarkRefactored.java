@@ -18,10 +18,10 @@ public class WorkerBenchmarkRefactored extends WorkerBenchmark {
 
         size = parseCommandLine(args, size);
 
-        System.out.printf("Starting benchmark using %d threads and a dataset of 2^%.2f elements.\n" +
+        System.out.printf("Starting benchmark using %d threads and a dataset of 2^%d elements.\n" +
                 "Starting array generation ...", ThreadCountHelper.getIdealThreadCount(), size);
 
-        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(size);
+        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << size);
         WorkerBenchmarkRefactored wb = new WorkerBenchmarkRefactored(data);
 
         System.out.println(" done.");
