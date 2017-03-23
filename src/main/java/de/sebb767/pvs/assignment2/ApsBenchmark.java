@@ -2,6 +2,7 @@ package de.sebb767.pvs.assignment2;
 
 import de.sebb767.pvs.assignment2.Implementation.JavaStandardPrefixSum;
 import de.sebb767.pvs.assignment2.Implementation.ProceduralPrefixSum;
+import de.sebb767.pvs.assignment2.Implementation.SplicedPrefixSum;
 import de.sebb767.pvs.helper.ImprovedBenchmark;
 import de.sebb767.pvs.helper.NumberGenerator;
 
@@ -17,6 +18,7 @@ public class ApsBenchmark {
 
         runBenchmark(new ProceduralPrefixSum(data));
         runBenchmark(new JavaStandardPrefixSum(data));
+        runBenchmark(new SplicedPrefixSum(data));
     }
 
     public static void runBenchmark(AbstractPrefixSum aps)
