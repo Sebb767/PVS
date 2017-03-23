@@ -4,13 +4,19 @@ import de.sebb767.pvs.assignment2.AbstractPrefixSum;
 import de.sebb767.pvs.helper.NumberGenerator;
 import de.sebb767.pvs.helper.ThreadCountHelper;
 
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by proj on 3/23/17.
  */
 public class SplicedPrefixSum extends AbstractPrefixSum {
     protected final int threads = ThreadCountHelper.getIdealThreadCount();
     protected Splice[] sp = new Splice[threads];
-    protected Thread[] threadPool = new Thread[threads];
+    protected final ExecutorService service = Executors.newCachedThreadPool();
+    protected final ExecutorCompletionService ecs = new ExecutorCompletionService(service);
 
     protected class Splice
     {
@@ -55,8 +61,7 @@ public class SplicedPrefixSum extends AbstractPrefixSum {
         for (int i = 0; i < threads; i++) {
             final Splice csp = sp[i] = new Splice((i == 0 ? 0 : (i * pieceSize) + offset), ((i + 1) * pieceSize) + offset);
 
-            threadPool[i] = new Thread(() -> csp.stepOne());
-            threadPool[i].start();
+            ecs.submit(() -> { csp.stepOne(); return null; });
         }
 
         joinAll();
@@ -65,9 +70,7 @@ public class SplicedPrefixSum extends AbstractPrefixSum {
             final Splice psp = sp[i - 1];
             final Splice csp = sp[i];
 
-            threadPool[i] = new Thread(() -> csp.stepTwo(psp.getBlockSum()));
-
-            threadPool[i].start();
+            ecs.submit(() -> { csp.stepTwo(psp.getBlockSum()); return null; });
         }
 
         joinAll();
@@ -77,7 +80,7 @@ public class SplicedPrefixSum extends AbstractPrefixSum {
     {
         for (int i = 0; i < threads; i++) {
             try {
-                threadPool[i].join();
+                ecs.take();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
