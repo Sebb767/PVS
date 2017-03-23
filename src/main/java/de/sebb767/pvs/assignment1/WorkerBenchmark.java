@@ -6,12 +6,48 @@ import de.sebb767.pvs.assignment1.Implementation.SequentialWorker;
 import de.sebb767.pvs.assignment1.Implementation.StreamWorker;
 import de.sebb767.pvs.helper.Benchmark;
 import de.sebb767.pvs.helper.NumberGenerator;
+import de.sebb767.pvs.helper.ThreadCountHelper;
 
 public class WorkerBenchmark {
     protected final NumberGenerator.ArrayContainer data;
 
     public static void main(String[] args) {
-        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << 25);
+        int size = 25;
+
+        for (int i = 1; i < args.length; i++) {
+            switch (args[i]) {
+                case "--help":
+                case "-h":
+                    System.out.printf("Usage: %s [--size|-s n] [--help|-h]", args[0]);
+                    System.exit(0);
+                    break;
+
+                case "--size":
+                case "-s":
+                    try {
+                        size = Integer.parseInt(args[++i]);
+                    }
+                    catch(ArrayIndexOutOfBoundsException ex) {
+                        System.out.println("The parameter size needs a valid integer as parameter!");
+                        System.exit(2);
+                    }
+                    catch(NumberFormatException ex) {
+                        System.out.println("The parameter size needs a valid integer as parameter!");
+                        System.exit(1);
+                    }
+                    break;
+            }
+        }
+
+        runBenchmarkForAllWorkes(size);
+    }
+
+    public static void runBenchmarkForAllWorkes(int arraySize)
+    {
+        System.out.printf("Starting benchmark using %d threads and a dataset of 2^%.2f elements.\n" +
+                "Starting array generation ...", ThreadCountHelper.getIdealThreadCount(), arraySize);
+
+        NumberGenerator.ArrayContainer data = (new NumberGenerator()).generateRandomArray(2 << arraySize);
         WorkerBenchmark wb = new WorkerBenchmark(data);
 
         wb.runBenchmark(new SequentialWorker());
