@@ -87,7 +87,10 @@ public class NumberGenerator {
 
         if(useCached){
             try {
-                gs.toJson(ac, new FileWriter(cachePath));
+                FileWriter fw = new FileWriter(cachePath);
+                gs.toJson(ac, fw);
+                fw.flush();
+                fw.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
