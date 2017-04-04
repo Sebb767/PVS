@@ -13,7 +13,7 @@ public class NumberGenerator {
         protected Integer[] data;
         protected long sum;
         protected double average;
-        protected Integer searchedElement;
+        protected int searchedElement;
 
         transient protected boolean fromCache = false;
 
@@ -22,7 +22,7 @@ public class NumberGenerator {
             this.sum = sum;
             this.average = average;
 
-            searchedElement = data[(int)(Math.random() * data.length)];
+            searchedElement = (int)(Math.random() * data.length);
         }
 
         public Integer[] getData() {
@@ -34,7 +34,12 @@ public class NumberGenerator {
         }
 
         public Integer getSearchedElement() {
-            return searchedElement;
+            return data[searchedElement];
+        }
+
+        public boolean verifySearchedElement(int index)
+        {
+            return searchedElement == index;
         }
 
         public boolean isFromCache() {
