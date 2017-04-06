@@ -9,7 +9,7 @@ public class ex3 {
 
 
     public static void main(String[] args) {
-        NumberGenerator.ArrayContainer ac = (new NumberGenerator()).generateRandomArray(2 << 22);
+        NumberGenerator.ArrayContainer ac = (new NumberGenerator()).generateRandomArray(1 << 23);
 
         ArraySearchSequential asc = new ArraySearchSequential(ac);
         runBenchmark(asc::search, asc);
