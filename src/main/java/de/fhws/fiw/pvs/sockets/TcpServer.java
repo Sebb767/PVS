@@ -1,5 +1,7 @@
 package de.fhws.fiw.pvs.sockets;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -15,6 +17,8 @@ public class TcpServer
 	public static void main( String[] args ) throws Exception
 	{
 		ServerSocket serverSocket = new ServerSocket( 6789 );
+		int cntr = 0;
+		Gson gs = new Gson();
 
 		while ( true )
 		{
@@ -24,8 +28,10 @@ public class TcpServer
 
 			String input = inFromClient.readLine( );
 			System.out.println( "Received: " + input );
+			//String output = "Edited Request Nr. " + (++cntr) + " with message '" + input.trim().toLowerCase() + "'.\n";
+			//System.out.println( "Responded: " + input );
 
-			String output = input.toUpperCase( );
+			String output = gs.toJson(new Response(++cntr, input.trim().toLowerCase()));
 
 			OutputStreamWriter outputStreamWriter = new OutputStreamWriter( socket.getOutputStream( ) );
 			BufferedWriter bufferedWriter = new BufferedWriter( outputStreamWriter );
