@@ -32,7 +32,7 @@ public class ExampleServiceImpl extends UnicastRemoteObject implements IExampleS
 	}
 
 	@Override
-	public void increaseCounter(Counter c, Loop lp) throws RemoteException {
+	public void increaseCounter(CounterRemoteInterface c, Loop lp) throws RemoteException {
 		c.increase();
 	}
 

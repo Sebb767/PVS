@@ -10,6 +10,10 @@ public class Server
 		{
 			IExampleService exampleService = new ExampleServiceImpl( );
 			Naming.rebind( "ExampleService", exampleService );
+
+			CounterRemoteInterface cri = new Counter();
+			Naming.rebind(CounterRemoteInterface.EXAMPLE_SERVICE_NAME, cri);
+
 			System.out.println( "Server is running..." );
 		}
 		catch ( Exception e )

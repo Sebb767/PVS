@@ -1,19 +1,19 @@
 package de.fhws.fiw.pvs.rmi;
 
-import java.io.Serializable;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Counter  implements Remote, Serializable {
+public class Counter extends UnicastRemoteObject implements CounterRemoteInterface {
     int counter = 0;
 
     protected Counter() throws RemoteException {
     }
 
-    void increase() { counter++; }
+    @Override
+    public void increase() throws RemoteException { counter++; }
 
-    public int getCounter() {
+    @Override
+    public int getCounter() throws RemoteException {
         return counter;
     }
 

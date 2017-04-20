@@ -20,11 +20,12 @@ public class Client
 
 			System.out.println( "Summe: " + exampleService.add( 101, 207 ) );
 
-			Counter c = exampleService.getCounter();
+			//Counter c = exampleService.getCounter();
+			CounterRemoteInterface c = ( CounterRemoteInterface ) Naming.lookup( "rmi://localhost/"  + "CounterService" );
 			c.increase();
 
 			exampleService.increaseCounter(c, new Loop() /* at least loop works */);
-			System.out.println("Counter: " + exampleService.getCounter().getCounter());
+			System.out.println("Counter: " + c.getCounter());
 
 		}
 		catch ( Exception e )

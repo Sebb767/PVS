@@ -14,7 +14,7 @@ public interface IExampleService extends Remote
 
 	int add( int n1, int n2 ) throws RemoteException;
 
-	void increaseCounter(Counter c, Loop lp) throws RemoteException;
+	void increaseCounter(CounterRemoteInterface c, Loop lp) throws RemoteException;
 
 	Counter getCounter() throws RemoteException;
 
