@@ -45,6 +45,7 @@ public class Client
 	public void greet( String name )
 	{
 		Greeter.Request request = Greeter.Request.newBuilder( ).setName( name ).build( );
+		//Greeter.Person person = Greeter.Person.newBuilder().setFirstName("John").setLastName("Doe").build();
 
 		try
 		{
