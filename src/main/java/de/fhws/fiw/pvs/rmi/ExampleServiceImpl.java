@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 
 public class ExampleServiceImpl extends UnicastRemoteObject implements IExampleService
 {
+	Counter c = new Counter();
 
 	public ExampleServiceImpl( ) throws RemoteException
 	{
@@ -30,4 +31,10 @@ public class ExampleServiceImpl extends UnicastRemoteObject implements IExampleS
 		return n1 + n2;
 	}
 
+	@Override
+	public void increaseCounter(Counter c, Loop lp) throws RemoteException {
+		c.increase();
+	}
+
+	public Counter getCounter() throws RemoteException { return c; }
 }
