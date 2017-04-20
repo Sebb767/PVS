@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package de.fhws.fiw.pvs.grpc;
+
+option java_package = "de.fhws.fiw.pvs.grpc";
+option java_outer_classname = "Greeter";
+
+//
+// Request / Response
+//
+
+
+message Request {
+    string name = 1;
+}
+
+message Reply {
+    string greeting = 2;
+}
+
+//
+// Service
+//
+
+service GreeterService {
+    rpc getGreeting (Request) returns (Reply) {
+    }
+}
