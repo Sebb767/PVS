@@ -23,6 +23,16 @@ message Reply {
 //
 
 service GreeterService {
-    rpc getGreeting (Request) returns (Reply) {
-    }
+    rpc getGreeting (Request) returns (Reply) { }
+
+    rpc getPersonGreeting (Person) returns (Reply) { }
+}
+
+//
+// Person
+//
+
+message Person {
+    string firstName = 1;
+    string lastName = 2;
 }
