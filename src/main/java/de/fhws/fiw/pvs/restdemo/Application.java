@@ -10,9 +10,6 @@ import javax.ws.rs.ApplicationPath;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by braunpet on 24.04.17.
- */
 @ApplicationPath( "api" )
 public class Application extends ResourceConfig
 {
