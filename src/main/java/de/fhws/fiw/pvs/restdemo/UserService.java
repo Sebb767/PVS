@@ -43,7 +43,7 @@ public class UserService
 	}
 
 	@POST
-	public Response createSomething(String text)
+	public Response updatePerson(String text)
 	{
 		return Response.ok( text.toUpperCase() ).build();
 	}
