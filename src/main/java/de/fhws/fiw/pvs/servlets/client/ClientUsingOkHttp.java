@@ -4,9 +4,6 @@ import okhttp3.*;
 
 import java.io.IOException;
 
-/**
- * Created by braunpet on 25.04.17.
- */
 public class ClientUsingOkHttp
 {
 	public static void main( String[] args )
@@ -14,7 +11,7 @@ public class ClientUsingOkHttp
 		final OkHttpClient client = new OkHttpClient( );
 
 		Request request = new Request.Builder( )
-				.url( "http://localhost:8080/demo/test" )
+				.url( "http://localhost:8080/demo/test?name=James" )
 				.get()
 				.build( );
 
