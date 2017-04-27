@@ -2,6 +2,7 @@ package de.fhws.fiw.pvs.restdemo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -39,6 +40,12 @@ public class UserService
 	public Response getPersonById( @PathParam( "id" ) long id )
 	{
 		return Response.ok( "Hello Person " + id ).build( );
+	}
+
+	@POST
+	public Response createSomething(String text)
+	{
+		return Response.ok( text.toUpperCase() ).build();
 	}
 
 }
