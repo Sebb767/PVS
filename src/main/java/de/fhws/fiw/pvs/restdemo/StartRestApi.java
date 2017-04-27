@@ -21,7 +21,7 @@ public class StartRestApi
 	public static void main( String[] args ) throws Exception
 	{
 		Tomcat tomcat = new Tomcat( );
-		tomcat.setPort( 8080 );
+		tomcat.setPort( 8081 );
 
 		Context context = tomcat.addWebapp( CONTEXT_PATH, new File( WEB_APP_LOCATION ).getAbsolutePath( ) );
 		String pathToClasses = new File( WEB_APP_CLASSES ).getAbsolutePath( );
